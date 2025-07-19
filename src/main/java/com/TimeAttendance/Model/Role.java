@@ -8,11 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer roleId;
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
@@ -24,10 +25,10 @@ public class Role {
         this.name = name;
     }
     public Integer getId() {
-        return id;
+        return roleId;
     }
     public void setId(Integer id) {
-        this.id = id;
+        this.roleId = id;
     }
     public ERole getName() {
         return name;
@@ -36,7 +37,7 @@ public class Role {
         this.name = name;
     }
     public Role(Integer id, ERole name) {
-        this.id = id;
+        this.roleId = id;
         this.name = name;
     }
     
