@@ -11,8 +11,17 @@ public class SignupRequest {
     private String lastName;
     private String phone;
     private String address;
+    private String fullName;
     
     
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -63,11 +72,16 @@ public class SignupRequest {
       this.role = role;
     }
 
-    public SignupRequest(String username, String email, String firstName, String lastName, String password) {
+    
+
+    public SignupRequest(String username, String email, Set<String> role, String firstName, String lastName,
+            String fullName, String password) {
         this.username = username;
         this.email = email;
+        this.role = role;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.fullName = fullName;
         this.password = password;
     }
 
