@@ -44,7 +44,8 @@ public class Employee {
         this.job = job;
         this.position = position;
     }
-
+    public Employee() {
+    }
     @ManyToOne
     private Job job;
 

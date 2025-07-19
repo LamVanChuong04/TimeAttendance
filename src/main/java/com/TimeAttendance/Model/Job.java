@@ -27,4 +27,5 @@ public class Job {
         this.name = name;
     }
     private String name;
+    public Job() {}
 }

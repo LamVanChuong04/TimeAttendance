@@ -27,5 +27,7 @@ public class Position {
         this.name = name;
     }
     private String name;
+    public Position() {
+    }
     
 }

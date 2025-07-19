@@ -27,4 +27,5 @@ public class Division {
         this.name = name;
     }
     private String name;
+    public Division() {}
 }

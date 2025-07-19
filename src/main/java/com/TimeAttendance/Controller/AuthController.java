@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,9 @@ import com.TimeAttendance.Payload.Respone.UserInfoResponse;
 import com.TimeAttendance.Repository.RoleRepository;
 import com.TimeAttendance.Repository.UserRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -67,7 +71,7 @@ public class AuthController {
             .body(new UserInfoResponse(userDetails.getId(),
                                     userDetails.getUsername(),
                                     userDetails.getEmail(),
-                                    roles, jwtCookie.getValue()));
+                                    roles));
     }
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
@@ -85,8 +89,6 @@ public class AuthController {
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
 
-    
- 
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(ERole.ROLE_USER)
           .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -120,5 +122,7 @@ public class AuthController {
         .body(new MessageResponse("You've been signed out!"));
   }
 
-
+  
 }
+  
+

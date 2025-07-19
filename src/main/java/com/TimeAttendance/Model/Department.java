@@ -27,4 +27,6 @@ public class Department {
         this.name = name;
     }
     private String name;
+    public Department() {
+    }
 }
