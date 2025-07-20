@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Employee {
@@ -22,7 +23,31 @@ public class Employee {
     private String cccd;
     private String image;
     private String address;
-
+    @OneToOne(mappedBy = "employee")
+    private User user;
+    public Employee(Long id, String fullName, String gender, LocalDate dateOfBirth, String phone, String cccd,
+            String image, String address, User user, Department department, Division division, Job job,
+            Position position) {
+        this.id = id;
+        this.fullName = fullName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.phone = phone;
+        this.cccd = cccd;
+        this.image = image;
+        this.address = address;
+        this.user = user;
+        this.department = department;
+        this.division = division;
+        this.job = job;
+        this.position = position;
+    }
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
     @ManyToOne
     private Department department;
 

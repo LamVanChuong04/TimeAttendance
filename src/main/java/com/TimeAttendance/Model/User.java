@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
 
 @Entity
@@ -91,6 +92,29 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+    @OneToOne
+    @JoinColumn(name = "employee_id", unique = true)
+    private Employee employee;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public User(Long userID, String username, String password, String email, String fullName, Set<Role> roles,
+            boolean active, Employee employee) {
+        this.userID = userID;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.fullName = fullName;
+        this.roles = roles;
+        this.active = active;
+        this.employee = employee;
     }
     
 }

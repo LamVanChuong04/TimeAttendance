@@ -98,5 +98,37 @@ public class EmployeeController {
 
         return ResponseEntity.ok("Thêm nhân viên thành công.");
     }
-    
+    // update nhân viên
+    @PostMapping("/employee/update/{id}")
+    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequest request) {
+        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+        if (employeeOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new MessageResponse("Không tìm thấy nhân viên với id = " + id));
+        }
+        
+        Optional<Department> departmentOpt = departmentRepository.findById(request.getDepartmentId());
+        Optional<Division> divisionOpt = divisionRepository.findById(request.getDivisionId());
+        Optional<Job> jobOpt = jobRepository.findById(request.getJobId());
+        Optional<Position> positionOpt = positionRepository.findById(request.getPositionId());
+        if (departmentOpt.isEmpty() || divisionOpt.isEmpty() || jobOpt.isEmpty() || positionOpt.isEmpty()) {
+            return ResponseEntity
+                .ok()
+                .body("Phòng ban, bộ phận, công việc hoặc chức vụ không tồn tại.");
+        }
+        Employee employee = employeeOptional.get();
+        employee.setFullName(request.getFullName());
+        employee.setImage(request.getImage());
+        employee.setAddress(request.getAddress());
+        employee.setCccd(request.getCccd());
+        employee.setGender(request.getGender());
+        employee.setPhone(request.getPhone());
+        employee.setDepartment(departmentOpt.get());
+        employee.setDivision(divisionOpt.get());
+        employee.setJob(jobOpt.get());
+        employee.setPosition(positionOpt.get());
+        employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth()));
+        employeeRepository.save(employee);
+        return ResponseEntity.ok("Cập nhật nhân viên thành công.");
+    }   
 }

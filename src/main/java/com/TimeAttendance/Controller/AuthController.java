@@ -21,12 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.TimeAttendance.Jwt.JwtUtils;
 import com.TimeAttendance.Model.ERole;
+import com.TimeAttendance.Model.Employee;
 import com.TimeAttendance.Model.Role;
 import com.TimeAttendance.Model.User;
 import com.TimeAttendance.Payload.Request.LoginRequest;
 import com.TimeAttendance.Payload.Request.SignupRequest;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Payload.Respone.UserInfoResponse;
+import com.TimeAttendance.Repository.EmployeeRepository;
 import com.TimeAttendance.Repository.RoleRepository;
 import com.TimeAttendance.Repository.UserRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
@@ -42,16 +44,19 @@ public class AuthController {
     private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
+    private final EmployeeRepository employeeRepository;
     public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
-            RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils) {
-        this.authenticationManager = authenticationManager;
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.encoder = encoder;
-        this.jwtUtils = jwtUtils;
+        RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils,
+        EmployeeRepository employeeRepository) {
+      this.authenticationManager = authenticationManager;
+      this.userRepository = userRepository;
+      this.roleRepository = roleRepository;
+      this.encoder = encoder;
+      this.jwtUtils = jwtUtils;
+      this.employeeRepository = employeeRepository;
     }
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser( @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> signinUser( @RequestBody LoginRequest loginRequest) {
     // gửi thông tin đăng nhập từ client lên server
         // Kiểm tra thông tin đăng nhập, xác thực username và password
         Authentication authentication = authenticationManager
@@ -74,10 +79,13 @@ public class AuthController {
                                     roles));
     }
   @PostMapping("/signup")
-  public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+  public ResponseEntity<?> signupUser(@RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
     }
+    Employee employee = new Employee();
+    employee.setFullName(signUpRequest.getFullName());
+    employee = employeeRepository.save(employee); // lưu trước để lấy ID
 
     // Create new user's account
     User user = new User();
@@ -85,6 +93,7 @@ public class AuthController {
     user.setEmail(signUpRequest.getEmail());
     user.setPassword(encoder.encode(signUpRequest.getPassword()));
     user.setFullName(signUpRequest.getFullName());
+    user.setEmployee(employee); // liên kết với Employee
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
@@ -116,7 +125,7 @@ public class AuthController {
   }
 
   @PostMapping("/signout")
-  public ResponseEntity<?> logoutUser() {
+  public ResponseEntity<?> signoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
     return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
         .body(new MessageResponse("You've been signed out!"));
