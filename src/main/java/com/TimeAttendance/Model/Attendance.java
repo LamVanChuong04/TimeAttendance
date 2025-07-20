@@ -1,92 +1,74 @@
 package com.TimeAttendance.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Attendance {
-    @Id 
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public Attendance(Long id, int year, int month, int day, int hourIn, int minuteIn, int hourOut, int minuteOut,
-            Employee employee) {
-        this.id = id;
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hourIn = hourIn;
-        this.minuteIn = minuteIn;
-        this.hourOut = hourOut;
-        this.minuteOut = minuteOut;
+
+    private LocalDate checkDate;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime checkInTime;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime checkOutTime;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
+    public Attendance() {}
+
+    public Attendance(LocalDate checkDate, LocalTime checkInTime, Employee employee) {
+        this.checkDate = checkDate;
+        this.checkInTime = checkInTime;
         this.employee = employee;
     }
 
-    private int year;
     public Long getId() {
         return id;
+    }
+
+    public Attendance(Long id, LocalDate checkDate, LocalTime checkInTime, LocalTime checkOutTime, Employee employee) {
+        this.id = id;
+        this.checkDate = checkDate;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.employee = employee;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public int getYear() {
-        return year;
+    public LocalDate getCheckDate() {
+        return checkDate;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setCheckDate(LocalDate checkDate) {
+        this.checkDate = checkDate;
     }
 
-    public int getMonth() {
-        return month;
+    public LocalTime getCheckInTime() {
+        return checkInTime;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public void setCheckInTime(LocalTime checkInTime) {
+        this.checkInTime = checkInTime;
     }
 
-    public int getDay() {
-        return day;
+    public LocalTime getCheckOutTime() {
+        return checkOutTime;
     }
 
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public int getHourIn() {
-        return hourIn;
-    }
-
-    public void setHourIn(int hourIn) {
-        this.hourIn = hourIn;
-    }
-
-    public int getMinuteIn() {
-        return minuteIn;
-    }
-
-    public void setMinuteIn(int minuteIn) {
-        this.minuteIn = minuteIn;
-    }
-
-    public int getHourOut() {
-        return hourOut;
-    }
-
-    public void setHourOut(int hourOut) {
-        this.hourOut = hourOut;
-    }
-
-    public int getMinuteOut() {
-        return minuteOut;
-    }
-
-    public void setMinuteOut(int minuteOut) {
-        this.minuteOut = minuteOut;
+    public void setCheckOutTime(LocalTime checkOutTime) {
+        this.checkOutTime = checkOutTime;
     }
 
     public Employee getEmployee() {
@@ -96,15 +78,6 @@ public class Attendance {
     public void setEmployee(Employee employee) {
         this.employee = employee;
     }
-
-    private int month;
-    private int day;
-    private int hourIn;
-    private int minuteIn;
-    private int hourOut;
-    private int minuteOut;
-
-    @ManyToOne
-    private Employee employee;
+    
 
 }
