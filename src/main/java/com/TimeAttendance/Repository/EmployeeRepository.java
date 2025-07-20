@@ -14,6 +14,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findAll();
     // tìm nhân viên theo id
     Optional<Employee> findById(Long id);
+    // tìm nhân viên theo tên
+    Optional<Employee> findByFullName(String fullName);
     
 
     
