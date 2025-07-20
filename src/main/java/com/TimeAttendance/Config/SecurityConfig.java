@@ -1,7 +1,7 @@
 package com.TimeAttendance.Config;
 
 import com.TimeAttendance.Service.UserService;
-import com.TimeAttendance.Service.UserService;
+
 import com.TimeAttendance.Jwt.AuthEntryPointJwt;
 import com.TimeAttendance.Jwt.AuthTokenFilter;
 
@@ -64,8 +64,8 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**", "/public/**", "/attendance/check-out", "/attendance/check-in").permitAll()
-                .requestMatchers("/auth/me").authenticated()
-                .requestMatchers("/employees/**", "/attendance/**","/create-employee").hasRole("ADMIN")
+                .requestMatchers("/auth/me", "/employee/update").authenticated()
+                .requestMatchers("/employee/**", "/attendance/**", "/employee/update/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             );
             

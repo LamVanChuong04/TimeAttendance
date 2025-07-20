@@ -14,6 +14,7 @@ import com.TimeAttendance.Repository.DivisionRepository;
 import com.TimeAttendance.Repository.EmployeeRepository;
 import com.TimeAttendance.Repository.JobRepository;
 import com.TimeAttendance.Repository.PositionRepository;
+import com.TimeAttendance.Service.UserDetailsImpl;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,6 +22,8 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -98,23 +101,26 @@ public class EmployeeController {
 
         return ResponseEntity.ok("Thêm nhân viên thành công.");
     }
-    // update nhân viên
-    @PostMapping("/employee/update/{id}")
-    public ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequest request) {
-        Optional<Employee> employeeOptional = employeeRepository.findById(id);
+    // nhân viên update thông tin của mình
+    @PostMapping("/employee/update")
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Optional<Employee> employeeOptional = employeeRepository.findById(userDetails.getId());
+
         if (employeeOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                .body(new MessageResponse("Không tìm thấy nhân viên với id = " + id));
+                .body(new MessageResponse("Vui lòng đăng nhập để cập nhật thông tin."));
         }
         
         Optional<Department> departmentOpt = departmentRepository.findById(request.getDepartmentId());
         Optional<Division> divisionOpt = divisionRepository.findById(request.getDivisionId());
         Optional<Job> jobOpt = jobRepository.findById(request.getJobId());
         Optional<Position> positionOpt = positionRepository.findById(request.getPositionId());
-        if (departmentOpt.isEmpty() || divisionOpt.isEmpty() || jobOpt.isEmpty() || positionOpt.isEmpty()) {
+        if (request.getFullName()== null||departmentOpt.isEmpty() || divisionOpt.isEmpty() || jobOpt.isEmpty() || positionOpt.isEmpty()) {
             return ResponseEntity
                 .ok()
-                .body("Phòng ban, bộ phận, công việc hoặc chức vụ không tồn tại.");
+                .body("Vui lòng nhập đầy đủ thông tin.");
         }
         Employee employee = employeeOptional.get();
         employee.setFullName(request.getFullName());
@@ -129,6 +135,43 @@ public class EmployeeController {
         employee.setPosition(positionOpt.get());
         employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth()));
         employeeRepository.save(employee);
+        return ResponseEntity.ok("Cập nhật thông tin thành công.");
+    }
+    // admin update thông tin của nhân viên
+    @PostMapping("/employee/update/{id}")
+    public ResponseEntity<?> updateEmployeeByAdmin(@PathVariable Long id, @RequestBody EmployeeRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Optional<Employee> employeeOptional = employeeRepository.findById(userDetails.getId());
+        
+        if (employeeOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new MessageResponse("Không tìm thấy nhân viên với id = " + id));
+        }
+        
+        Optional<Department> departmentOpt = departmentRepository.findById(request.getDepartmentId());
+        Optional<Division> divisionOpt = divisionRepository.findById(request.getDivisionId());
+        Optional<Job> jobOpt = jobRepository.findById(request.getJobId());
+        Optional<Position> positionOpt = positionRepository.findById(request.getPositionId());
+        if (request.getFullName()== null||departmentOpt.isEmpty() || divisionOpt.isEmpty() || jobOpt.isEmpty() || positionOpt.isEmpty()) {
+            return ResponseEntity
+                .ok()
+                .body("Vui lòng nhập dầy đủ thông tin.");
+        }
+        Employee employee = employeeOptional.get();
+        employee.setFullName(request.getFullName());
+        employee.setImage(request.getImage());
+        employee.setAddress(request.getAddress());
+        employee.setCccd(request.getCccd());
+        employee.setGender(request.getGender());
+        employee.setPhone(request.getPhone());
+        employee.setDepartment(departmentOpt.get());
+        employee.setDivision(divisionOpt.get());
+        employee.setJob(jobOpt.get());
+        employee.setPosition(positionOpt.get());
+        employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth()));
+        employeeRepository.save(employee);
+        // Trả về phản hồi thành công
         return ResponseEntity.ok("Cập nhật nhân viên thành công.");
     }   
 }
