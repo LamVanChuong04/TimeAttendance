@@ -1,16 +1,31 @@
 package com.TimeAttendance.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Overtime {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private int year;
+    private int month;
+    private int day;
+    private int hours;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id", nullable = false)
+    private Employee employee;
+
+    @ManyToOne
+    @JoinColumn(name = "shift_type_id", nullable = false)
+    private ShiftType shiftType;
+
+    // ✅ Constructor mặc định cần thiết cho JPA
+    public Overtime() {}
+
+    // ✅ Constructor đầy đủ
     public Overtime(Long id, int year, int month, int day, int hours, Employee employee, ShiftType shiftType) {
         this.id = id;
         this.year = year;
@@ -21,11 +36,7 @@ public class Overtime {
         this.shiftType = shiftType;
     }
 
-    private int year;
-    private int month;
-    private int day;
-    private int hours;
-
+    // ✅ Getter & Setter
     public Long getId() {
         return id;
     }
@@ -81,10 +92,4 @@ public class Overtime {
     public void setShiftType(ShiftType shiftType) {
         this.shiftType = shiftType;
     }
-
-    @ManyToOne
-    private Employee employee;
-
-    @ManyToOne
-    private ShiftType shiftType;
 }

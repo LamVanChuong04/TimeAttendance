@@ -7,12 +7,9 @@ public class SignupRequest {
     private String username;
     private String email;
     private Set<String> role;
-    private String firstName;
-    private String lastName;
-    private String phone;
-    private String address;
     private String fullName;
-    
+
+    private String password;
     
     public String getFullName() {
         return fullName;
@@ -22,23 +19,7 @@ public class SignupRequest {
         this.fullName = fullName;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    private String password;
+ 
   
     public String getUsername() {
         return username;
@@ -72,15 +53,10 @@ public class SignupRequest {
       this.role = role;
     }
 
-    
-
-    public SignupRequest(String username, String email, Set<String> role, String firstName, String lastName,
-            String fullName, String password) {
+    public SignupRequest(String username, String email, Set<String> role, String fullName, String password) {
         this.username = username;
         this.email = email;
         this.role = role;
-        this.firstName = firstName;
-        this.lastName = lastName;
         this.fullName = fullName;
         this.password = password;
     }

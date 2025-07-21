@@ -10,7 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
-import com.TimeAttendance.Model.User;
+import com.TimeAttendance.Model.Employee;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -37,16 +37,16 @@ public class UserDetailsImpl implements UserDetails {
     this.authorities = authorities;
   }
 
-  public static UserDetailsImpl build(User user) {
-    List<GrantedAuthority> authorities = user.getRoles().stream()
+  public static UserDetailsImpl build(Employee employ) {
+    List<GrantedAuthority> authorities = employ.getRoles().stream()
         .map(role -> new SimpleGrantedAuthority(role.getName().name()))
         .collect(Collectors.toList());
 
     return new UserDetailsImpl(
-        user.getUserID(), 
-        user.getUsername(), 
-        user.getEmail(),
-        user.getPassword(), 
+        employ.getId(), 
+        employ.getUsername(), 
+        employ.getEmail(),
+        employ.getPassword(), 
         authorities);
   }
 

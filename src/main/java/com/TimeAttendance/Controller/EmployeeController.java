@@ -26,10 +26,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 
@@ -107,7 +110,7 @@ public class EmployeeController {
         return ResponseEntity.ok("Thêm nhân viên thành công.");
     }
     // nhân viên update thông tin của mình
-    @PostMapping("/employee/update")
+    @PutMapping("/employee/update")
     public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -143,7 +146,7 @@ public class EmployeeController {
         return ResponseEntity.ok("Cập nhật thông tin thành công.");
     }
     // admin update thông tin của nhân viên
-    @PostMapping("/employee/update/{id}")
+    @PutMapping("/employee/update/{id}")
     public ResponseEntity<?> updateEmployeeByAdmin(@PathVariable Long id, @RequestBody EmployeeRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -178,5 +181,19 @@ public class EmployeeController {
         employeeRepository.save(employee);
         // Trả về phản hồi thành công
         return ResponseEntity.ok("Cập nhật nhân viên thành công.");
-    }   
+    } 
+    // xóa nhân viên
+    @DeleteMapping("/employee/delete/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
+        Optional<Employee> employ = employeeRepository.findById(id);
+        if(employ.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new MessageResponse("Không tìm thấy nhân viên với id = " + id));
+        } else {
+            employeeRepository.deleteById(id);;
+            return ResponseEntity.ok("Xóa nhân viên thành công.");
+        }
+    }
+    
+
 }

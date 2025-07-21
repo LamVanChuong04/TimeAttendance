@@ -23,14 +23,14 @@ import com.TimeAttendance.Jwt.JwtUtils;
 import com.TimeAttendance.Model.ERole;
 import com.TimeAttendance.Model.Employee;
 import com.TimeAttendance.Model.Role;
-import com.TimeAttendance.Model.User;
+
 import com.TimeAttendance.Payload.Request.LoginRequest;
 import com.TimeAttendance.Payload.Request.SignupRequest;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Payload.Respone.UserInfoResponse;
 import com.TimeAttendance.Repository.EmployeeRepository;
 import com.TimeAttendance.Repository.RoleRepository;
-import com.TimeAttendance.Repository.UserRepository;
+
 import com.TimeAttendance.Service.UserDetailsImpl;
 
 
@@ -39,16 +39,14 @@ import com.TimeAttendance.Service.UserDetailsImpl;
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
-    private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
     private final EmployeeRepository employeeRepository;
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository,
+    public AuthController(AuthenticationManager authenticationManager,
         RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils,
         EmployeeRepository employeeRepository) {
       this.authenticationManager = authenticationManager;
-      this.userRepository = userRepository;
       this.roleRepository = roleRepository;
       this.encoder = encoder;
       this.jwtUtils = jwtUtils;
@@ -79,7 +77,7 @@ public class AuthController {
     }
   @PostMapping("/signup")
   public ResponseEntity<?> signupUser(@RequestBody SignupRequest signUpRequest) {
-    if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+    if (employeeRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
     }
     Employee employee = new Employee();
@@ -87,12 +85,12 @@ public class AuthController {
     employee = employeeRepository.save(employee); // lưu trước để lấy ID
 
     // Create new user's account
-    User user = new User();
-    user.setUsername(signUpRequest.getUsername());
-    user.setEmail(signUpRequest.getEmail());
-    user.setPassword(encoder.encode(signUpRequest.getPassword()));
-    user.setFullName(signUpRequest.getFullName());
-    user.setEmployee(employee); // liên kết với Employee
+    Employee employ = new Employee();
+    employ.setUsername(signUpRequest.getUsername());
+    employ.setEmail(signUpRequest.getEmail());
+    employ.setPassword(encoder.encode(signUpRequest.getPassword()));
+    employ.setFullName(signUpRequest.getFullName());
+    
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
@@ -117,8 +115,8 @@ public class AuthController {
       });
     }
 
-    user.setRoles(roles);
-    userRepository.save(user);
+    employ.setRoles(roles);
+    employeeRepository.save(employ);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }

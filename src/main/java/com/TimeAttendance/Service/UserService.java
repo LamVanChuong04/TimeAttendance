@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.TimeAttendance.Model.User;
+import com.TimeAttendance.Model.Employee;
 
-import com.TimeAttendance.Repository.UserRepository;
+import com.TimeAttendance.Repository.EmployeeRepository;
 
 
 import jakarta.transaction.Transactional;
@@ -19,21 +19,20 @@ import jakarta.transaction.Transactional;
 public class UserService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
-    private final UserRepository customerRepository;
-    private final UserRepository userRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public UserService(UserRepository customerRepository,
+    public UserService(EmployeeRepository customerRepository,
                            PasswordEncoder passwordEncoder,
-                           UserRepository userRepository) {
-        this.customerRepository = customerRepository;
+                           EmployeeRepository employeeRepository) {
+
         this.passwordEncoder = passwordEncoder;
-        this.userRepository = userRepository;
+        this.employeeRepository = employeeRepository;
     }
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findByUsername(username);
+        Optional<Employee> userOptional = employeeRepository.findByUsername(username);
 
         if (userOptional.isEmpty()) {
             throw new UsernameNotFoundException("User not found with username: " + username);
@@ -42,8 +41,8 @@ public class UserService implements UserDetailsService {
         return UserDetailsImpl.build(userOptional.get());
     }
 
-    public User saveCustomer(User customer) {
+    public Employee saveCustomer(Employee customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
-        return customerRepository.save(customer);
+        return employeeRepository.save(customer);
     }
 }
