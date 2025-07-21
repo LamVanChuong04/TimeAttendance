@@ -16,6 +16,8 @@ import com.TimeAttendance.Repository.JobRepository;
 import com.TimeAttendance.Repository.PositionRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
 
+
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
+
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
@@ -53,6 +56,8 @@ public class EmployeeController {
         List<Employee> employees = employeeRepository.findAll();
         return ResponseEntity.ok(employees);
     }
+
+    
     @GetMapping("/employee/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
     Optional<Employee> employeeOptional = employeeRepository.findById(id);
