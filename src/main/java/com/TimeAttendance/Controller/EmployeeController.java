@@ -125,11 +125,7 @@ public class EmployeeController {
         Optional<Division> divisionOpt = divisionRepository.findById(request.getDivisionId());
         Optional<Job> jobOpt = jobRepository.findById(request.getJobId());
         Optional<Position> positionOpt = positionRepository.findById(request.getPositionId());
-        if (request.getFullName()== null||departmentOpt.isEmpty() || divisionOpt.isEmpty() || jobOpt.isEmpty() || positionOpt.isEmpty()) {
-            return ResponseEntity
-                .ok()
-                .body("Vui lòng nhập đầy đủ thông tin.");
-        }
+        
         Employee employee = employeeOptional.get();
         employee.setFullName(request.getFullName());
         employee.setImage(request.getImage());
@@ -142,6 +138,7 @@ public class EmployeeController {
         employee.setJob(jobOpt.get());
         employee.setPosition(positionOpt.get());
         employee.setDateOfBirth(LocalDate.parse(request.getDateOfBirth()));
+        
         employeeRepository.save(employee);
         return ResponseEntity.ok("Cập nhật thông tin thành công.");
     }

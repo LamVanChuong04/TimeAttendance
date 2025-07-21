@@ -18,10 +18,10 @@ public class OvertimeService {
         this.overtimeRepository = overtimeRepository;
         this.employeeRepository = employeeRepository;
     }
-    public List<Overtime> getOvertimeByUsername(String username){
-        Optional<Employee> employeeOpt = employeeRepository.findByFullName(username);
+    public List<Overtime> getOvertimeById(Long id){
+        Optional<Employee> employeeOpt = employeeRepository.findById(id);
         if (employeeOpt.isEmpty()) {
-            throw new RuntimeException("Employee not found for user: " + username);
+            throw new RuntimeException("Employee not found for user: " + id);
         }
         return overtimeRepository.findByEmployee(employeeOpt.get());
         

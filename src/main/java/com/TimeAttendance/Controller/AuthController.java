@@ -80,9 +80,6 @@ public class AuthController {
     if (employeeRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
     }
-    Employee employee = new Employee();
-    employee.setFullName(signUpRequest.getFullName());
-    employee = employeeRepository.save(employee); // lưu trước để lấy ID
 
     // Create new user's account
     Employee employ = new Employee();

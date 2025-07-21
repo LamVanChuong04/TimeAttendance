@@ -35,6 +35,8 @@ public class Employee {
     public String getEmail() {
         return email;
     }
+   
+
 
     public void setEmail(String email) {
         this.email = email;
@@ -58,6 +60,8 @@ public class Employee {
 
     
 
+    
+
     public Employee(Long id, String fullName, String gender, LocalDate dateOfBirth, String phone, String cccd,
             String image, String address, String password, String username, String email, boolean active,
             Set<Role> roles, Department department, Division division, Job job, Position position,
@@ -75,6 +79,7 @@ public class Employee {
         this.email = email;
         this.active = active;
         this.roles = roles;
+        
         this.department = department;
         this.division = division;
         this.job = job;
@@ -227,4 +232,6 @@ public class Employee {
     public void setOvertimes(List<Overtime> overtimes) {
         this.overtimes = overtimes;
     }
+
+    
 }

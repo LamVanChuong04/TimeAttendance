@@ -49,5 +49,6 @@ public class ShiftType {
         this.coefficient = coefficient;
         this.overtimes = overtimes;
     }
-
+    public ShiftType() {
+    }
 }
