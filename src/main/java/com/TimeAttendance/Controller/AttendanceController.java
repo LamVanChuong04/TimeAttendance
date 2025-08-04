@@ -21,6 +21,10 @@ import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Repository.AttendanceRepository;
 import com.TimeAttendance.Repository.EmployeeRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -29,6 +33,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
+@Tag(name = "Attendance Controller")
 public class AttendanceController {
     private final EmployeeRepository employeeRepository;
     private final AttendanceRepository attendanceRepository;
@@ -36,6 +41,8 @@ public class AttendanceController {
         this.employeeRepository = employeeRepository;
         this.attendanceRepository = attendanceRepository;
     }
+
+    @Operation(summary = "Check-in", description = "Điểm danh")
     @PostMapping("/attendance/check-in")
     public ResponseEntity<?> checkInAttendance() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -62,6 +69,7 @@ public class AttendanceController {
 
     return ResponseEntity.ok(new MessageResponse("Chấm công thành công lúc " + now));
     }
+    @Operation(summary = "Check-out", description = "Điểm danh về")
     @PostMapping("/attendance/check-out")
     public ResponseEntity<?> checkOutAttendance() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -93,6 +101,7 @@ public class AttendanceController {
         return ResponseEntity.ok(new MessageResponse("Chấm công ra thành công lúc " + now));
     }
     // xem bảng công của bản thân
+    @Operation(summary = "Get attendace", description = "Lấy bảng lương nhân viên")
     @GetMapping("/attendance")
     public ResponseEntity<?> getAttendanceOfEmployee() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -113,6 +122,7 @@ public class AttendanceController {
         return ResponseEntity.ok(responseList);
     }
     // xem bảng công của nhân viên
+    @Operation(summary = "Get attendance of id", description = "Lấy bảng lương nhân viên theo id")
     @GetMapping("/attendance/{id}")
     public ResponseEntity<?> getAttendanceById(@PathVariable Long id) {
         Optional<Employee> employee = employeeRepository.findById(id);

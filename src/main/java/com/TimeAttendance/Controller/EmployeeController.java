@@ -16,7 +16,8 @@ import com.TimeAttendance.Repository.JobRepository;
 import com.TimeAttendance.Repository.PositionRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
 
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,7 +38,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
-
+@Tag(name = "Employee Controller")
 public class EmployeeController {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
@@ -53,14 +54,14 @@ public class EmployeeController {
         this.jobRepository = jobRepository;
         this.positionRepository = positionRepository;
     }
-    
+    @Operation(summary = "Get information", description = "Lấy thông tin nhân viên")
     @GetMapping("/employees")
     public ResponseEntity<?> getAllEmployee() {
         List<Employee> employees = employeeRepository.findAll();
         return ResponseEntity.ok(employees);
     }
 
-    
+    @Operation(summary = "Get information", description = "Lấy thông tin nhân viên theo id")
     @GetMapping("/employee/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
     Optional<Employee> employeeOptional = employeeRepository.findById(id);
@@ -72,6 +73,7 @@ public class EmployeeController {
         }
     }
     // thêm nhân viên
+    @Operation(summary = "Add Employee", description = "Thêm nhân viên")
     @PostMapping("/employee/create")
     public ResponseEntity<?> createEmployee(@RequestBody EmployeeRequest request) {
         Optional<Employee> existingEmployee = employeeRepository.findByFullName(request.getFullName());
@@ -110,6 +112,7 @@ public class EmployeeController {
         return ResponseEntity.ok("Thêm nhân viên thành công.");
     }
     // nhân viên update thông tin của mình
+    @Operation(summary = "Update Information", description = "Cập nhật thông tin nhân viên")
     @PutMapping("/employee/update")
     public ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -143,6 +146,7 @@ public class EmployeeController {
         return ResponseEntity.ok("Cập nhật thông tin thành công.");
     }
     // admin update thông tin của nhân viên
+    @Operation(summary = "Update information", description = "Cập nhật thông tin nhân viên theo id")
     @PutMapping("/employee/update/{id}")
     public ResponseEntity<?> updateEmployeeByAdmin(@PathVariable Long id, @RequestBody EmployeeRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -180,6 +184,7 @@ public class EmployeeController {
         return ResponseEntity.ok("Cập nhật nhân viên thành công.");
     } 
     // xóa nhân viên
+    @Operation(summary = "Delete Employee", description = "Xóa nhân viên")
     @DeleteMapping("/employee/delete/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
         Optional<Employee> employ = employeeRepository.findById(id);

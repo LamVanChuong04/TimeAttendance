@@ -8,6 +8,8 @@ import com.TimeAttendance.Payload.Respone.OverTimeResponse;
 import com.TimeAttendance.Service.OvertimeService;
 import com.TimeAttendance.Service.UserDetailsImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +21,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @RestController
-
+@Tag(name = "Overtime Controller")
 public class OverTimeController {
     private final OvertimeService overtimeService;
     public OverTimeController(OvertimeService overtimeService) {
         this.overtimeService = overtimeService;
     }
     // xem lịch sử tăng ca của nhân viên
+    @Operation(summary = "Get Overtime", description = "Xem lịch sử tăng ca")
     @GetMapping("/overtime")
     public ResponseEntity<?> getOvertime(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();

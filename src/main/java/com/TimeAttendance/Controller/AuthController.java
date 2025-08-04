@@ -81,6 +81,7 @@ public class AuthController {
                                     userDetails.getEmail(),
                                     roles));
     }
+  @Operation(summary = "Create account", description = "Tạo tài khoản")
   @PostMapping("/signup")
   public ResponseEntity<?> signupUser(@RequestBody SignupRequest signUpRequest) {
     if (employeeRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -123,7 +124,7 @@ public class AuthController {
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
-
+  @Operation(summary = "Logout", description = "Đăng xuất tài khoản")
   @PostMapping("/signout")
   public ResponseEntity<?> signoutUser() {
     ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
