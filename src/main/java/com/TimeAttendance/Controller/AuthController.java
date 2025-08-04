@@ -33,10 +33,15 @@ import com.TimeAttendance.Repository.RoleRepository;
 
 import com.TimeAttendance.Service.UserDetailsImpl;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 
 @RestController
 @RequestMapping("/auth")
+
+@Tag(name = "User Controller")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final RoleRepository roleRepository;
@@ -52,6 +57,7 @@ public class AuthController {
       this.jwtUtils = jwtUtils;
       this.employeeRepository = employeeRepository;
     }
+    @Operation(summary = "Login", description = "Đăng nhập tài khoản")
     @PostMapping("/signin")
     public ResponseEntity<?> signinUser( @RequestBody LoginRequest loginRequest) {
     // gửi thông tin đăng nhập từ client lên server
