@@ -16,7 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.TimeAttendance.Service.UserService;
+import com.TimeAttendance.Service.UserDetailsServiceImpl;
 
 
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -24,8 +24,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
   private JwtUtils jwtUtils;
 
   @Autowired
-  private UserService customerService;
-
+  private UserDetailsServiceImpl customerService;
+  
+  
   private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
 
   @Override

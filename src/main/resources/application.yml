@@ -1,0 +1,38 @@
+# spring:
+#     profiles:
+#         active: @spring.profiles.active@
+# ---
+
+# spring:
+#     config:
+#         activates:
+#             on-profile: dev
+openapi:
+    services:
+        api-docs: api-services
+        server: http://localhost:8080
+        title: API services
+        version: v1.0.0
+---
+# spring:
+#     config:
+#         activates:
+#             on-profile: test
+# openapi:
+#     services:
+#         api-docs: api-services
+#         server: http://localhost:8081
+#         title: API services
+#         version: v1.0.0
+# ---
+# spring:
+#     config:
+#         activates:
+#             on-profile: prod
+# openapi:
+#     services:
+#         api-docs: api-services
+#         server: http://localhost:8082
+#         title: API services
+#         version: v1.0.0
+        

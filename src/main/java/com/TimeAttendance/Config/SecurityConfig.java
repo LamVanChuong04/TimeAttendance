@@ -1,6 +1,6 @@
 package com.TimeAttendance.Config;
 
-import com.TimeAttendance.Service.UserService;
+import com.TimeAttendance.Service.UserDetailsServiceImpl;
 
 import com.TimeAttendance.Jwt.AuthEntryPointJwt;
 import com.TimeAttendance.Jwt.AuthTokenFilter;
@@ -40,7 +40,7 @@ public class SecurityConfig {
 
     // Tách riêng bean UserDetailsService, không inject CustomerService trực tiếp vào SecurityConfig
     @Bean
-    public UserDetailsService userDetailsService(UserService userService) {
+    public UserDetailsService userDetailsService(UserDetailsServiceImpl userService) {
         return userService;
     }
 

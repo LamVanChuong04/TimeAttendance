@@ -16,14 +16,13 @@ import com.TimeAttendance.Repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
     private final EmployeeRepository employeeRepository;
 
-    public UserService(EmployeeRepository customerRepository,
-                           PasswordEncoder passwordEncoder,
-                           EmployeeRepository employeeRepository) {
+    public UserDetailsServiceImpl( PasswordEncoder passwordEncoder,
+                        EmployeeRepository employeeRepository) {
 
         this.passwordEncoder = passwordEncoder;
         this.employeeRepository = employeeRepository;
