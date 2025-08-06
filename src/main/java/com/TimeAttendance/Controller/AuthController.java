@@ -106,7 +106,6 @@ public class AuthController {
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
-
     if (strRoles == null) {
       Role userRole = roleRepository.findByName(ERole.ROLE_USER)
           .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -141,7 +140,7 @@ public class AuthController {
           dataMail.setProps(props);
 
           mailServiceImpl.sendHtmlMail(dataMail, Const.TEMPLATE_FILE_NAME.CLIENT_REGISTER);
-        } catch (MessagingException exp){
+    } catch (MessagingException exp){
             exp.printStackTrace();
         }
 
