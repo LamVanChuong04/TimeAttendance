@@ -91,7 +91,7 @@ public class AuthController {
     }
   @Operation(summary = "Create account", description = "Tạo tài khoản")
   @PostMapping("/signup")
-  public ResponseEntity<?> signupUser(@RequestBody SignupRequest signUpRequest) {
+  public ResponseEntity<?> signupUser(@RequestBody SignupRequest signUpRequest) throws Exception {
     if (employeeRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
     }
@@ -140,6 +140,8 @@ public class AuthController {
           dataMail.setProps(props);
 
           mailServiceImpl.sendHtmlMail(dataMail, Const.TEMPLATE_FILE_NAME.CLIENT_REGISTER);
+
+          
     } catch (MessagingException exp){
             exp.printStackTrace();
         }

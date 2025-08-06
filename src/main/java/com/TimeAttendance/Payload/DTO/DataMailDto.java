@@ -7,6 +7,7 @@ public class DataMailDto {
     private String subject;
     private String content;
     private Map<String, Object> props;
+    
     public DataMailDto(String to, String subject, String content, Map<String, Object> props) {
         this.to = to;
         this.subject = subject;
