@@ -1,7 +1,9 @@
 package com.TimeAttendance.Controller;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,18 +25,22 @@ import com.TimeAttendance.Jwt.JwtUtils;
 import com.TimeAttendance.Model.ERole;
 import com.TimeAttendance.Model.Employee;
 import com.TimeAttendance.Model.Role;
-
+import com.TimeAttendance.Payload.DTO.DataMailDto;
 import com.TimeAttendance.Payload.Request.LoginRequest;
 import com.TimeAttendance.Payload.Request.SignupRequest;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Payload.Respone.UserInfoResponse;
 import com.TimeAttendance.Repository.EmployeeRepository;
 import com.TimeAttendance.Repository.RoleRepository;
-
+import com.TimeAttendance.Service.MailService;
 import com.TimeAttendance.Service.UserDetailsImpl;
+import com.TimeAttendance.Service.Impl.MailServiceImpl;
+import com.TimeAttendance.utils.Const;
+
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
 
 
 
@@ -48,14 +54,16 @@ public class AuthController {
     private final PasswordEncoder encoder;
     private final JwtUtils jwtUtils;
     private final EmployeeRepository employeeRepository;
+    private final MailServiceImpl mailServiceImpl;
     public AuthController(AuthenticationManager authenticationManager,
         RoleRepository roleRepository, PasswordEncoder encoder, JwtUtils jwtUtils,
-        EmployeeRepository employeeRepository) {
+        EmployeeRepository employeeRepository, MailServiceImpl mailServiceImpl) {
       this.authenticationManager = authenticationManager;
       this.roleRepository = roleRepository;
       this.encoder = encoder;
       this.jwtUtils = jwtUtils;
       this.employeeRepository = employeeRepository;
+      this.mailServiceImpl = mailServiceImpl;
     }
     @Operation(summary = "Login", description = "Đăng nhập tài khoản")
     @PostMapping("/signin")
@@ -121,6 +129,21 @@ public class AuthController {
 
     employ.setRoles(roles);
     employeeRepository.save(employ);
+    // send email
+    try {
+          DataMailDto dataMail = new DataMailDto();
+          dataMail.setTo(signUpRequest.getEmail());
+          dataMail.setSubject(Const.SEND_MAIL_SUBJECT.CLIENT_REGISTER);
+
+          Map<String, Object> props = new HashMap<>();
+          props.put("fullname",signUpRequest.getFullName());
+          props.put("username", signUpRequest.getUsername());
+          dataMail.setProps(props);
+
+          mailServiceImpl.sendHtmlMail(dataMail, Const.TEMPLATE_FILE_NAME.CLIENT_REGISTER);
+        } catch (MessagingException exp){
+            exp.printStackTrace();
+        }
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }

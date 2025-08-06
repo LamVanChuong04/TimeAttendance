@@ -14,6 +14,13 @@ openapi:
         title: API services
         version: v1.0.0
 ---
+mailServer:
+  host: smtp.gmail.com
+  port: 587
+  email: lamvanromkaka@gmail.com
+  password: cxuz djds eadg ffqe
+  protocol: smtp
+  isSSL: false
 # spring:
 #     config:
 #         activates:
