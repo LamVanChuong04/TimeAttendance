@@ -1,4 +1,4 @@
-package com.TimeAttendance.Model;
+package com.TimeAttendance.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

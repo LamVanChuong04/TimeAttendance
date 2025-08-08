@@ -1,12 +1,13 @@
-package com.TimeAttendance.Repository;
+package com.TimeAttendance.Repositories;
 
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.TimeAttendance.Model.Employee;
-import com.TimeAttendance.Model.Overtime;
+import com.TimeAttendance.Models.Employee;
+import com.TimeAttendance.Models.Overtime;
+
 import java.util.List;
 
 

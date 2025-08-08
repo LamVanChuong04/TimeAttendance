@@ -1,4 +1,4 @@
-package com.TimeAttendance.Model;
+package com.TimeAttendance.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,17 +6,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Allowance {
+public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public Allowance(Long id, String name, double amount) {
-        this.id = id;
-        this.name = name;
-        this.amount = amount;
-    }
-    private String name;
-    private double amount;
     public Long getId() {
         return id;
     }
@@ -26,13 +19,14 @@ public class Allowance {
     public String getName() {
         return name;
     }
+    public Department(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     public void setName(String name) {
         this.name = name;
     }
-    public double getAmount() {
-        return amount;
-    }
-    public void setAmount(double amount) {
-        this.amount = amount;
+    private String name;
+    public Department() {
     }
 }

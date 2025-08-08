@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.TimeAttendance.Model.Employee;
-import com.TimeAttendance.Model.Overtime;
-import com.TimeAttendance.Repository.EmployeeRepository;
-import com.TimeAttendance.Repository.OvertimRepository;
+import com.TimeAttendance.Models.Employee;
+import com.TimeAttendance.Models.Overtime;
+import com.TimeAttendance.Repositories.EmployeeRepository;
+import com.TimeAttendance.Repositories.OvertimRepository;
 
 @Service
 public class OvertimeService {

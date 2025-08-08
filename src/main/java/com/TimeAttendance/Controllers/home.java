@@ -1,4 +1,4 @@
-package com.TimeAttendance.Controller;
+package com.TimeAttendance.Controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;

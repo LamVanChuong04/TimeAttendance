@@ -1,19 +1,19 @@
-package com.TimeAttendance.Controller;
+package com.TimeAttendance.Controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TimeAttendance.Model.Department;
-import com.TimeAttendance.Model.Division;
-import com.TimeAttendance.Model.Employee;
-import com.TimeAttendance.Model.Job;
-import com.TimeAttendance.Model.Position;
+import com.TimeAttendance.Models.Department;
+import com.TimeAttendance.Models.Division;
+import com.TimeAttendance.Models.Employee;
+import com.TimeAttendance.Models.Job;
+import com.TimeAttendance.Models.Position;
 import com.TimeAttendance.Payload.Request.EmployeeRequest;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
-import com.TimeAttendance.Repository.DepartmentRepository;
-import com.TimeAttendance.Repository.DivisionRepository;
-import com.TimeAttendance.Repository.EmployeeRepository;
-import com.TimeAttendance.Repository.JobRepository;
-import com.TimeAttendance.Repository.PositionRepository;
+import com.TimeAttendance.Repositories.DepartmentRepository;
+import com.TimeAttendance.Repositories.DivisionRepository;
+import com.TimeAttendance.Repositories.EmployeeRepository;
+import com.TimeAttendance.Repositories.JobRepository;
+import com.TimeAttendance.Repositories.PositionRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
 
 import io.swagger.v3.oas.annotations.Operation;

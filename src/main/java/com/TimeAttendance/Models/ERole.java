@@ -1,4 +1,4 @@
-package com.TimeAttendance.Model;
+package com.TimeAttendance.Models;
 
 public enum ERole {
     ROLE_USER,

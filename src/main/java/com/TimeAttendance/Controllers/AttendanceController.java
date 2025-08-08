@@ -1,4 +1,4 @@
-package com.TimeAttendance.Controller;
+package com.TimeAttendance.Controllers;
 
 
 import java.time.LocalDate;
@@ -14,12 +14,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TimeAttendance.Model.Attendance;
-import com.TimeAttendance.Model.Employee;
+import com.TimeAttendance.Models.Attendance;
+import com.TimeAttendance.Models.Employee;
 import com.TimeAttendance.Payload.Respone.AttendanceResponse;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
-import com.TimeAttendance.Repository.AttendanceRepository;
-import com.TimeAttendance.Repository.EmployeeRepository;
+import com.TimeAttendance.Repositories.AttendanceRepository;
+import com.TimeAttendance.Repositories.EmployeeRepository;
 import com.TimeAttendance.Service.UserDetailsImpl;
 
 import io.swagger.v3.oas.annotations.Operation;

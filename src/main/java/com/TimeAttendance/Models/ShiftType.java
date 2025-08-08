@@ -1,4 +1,4 @@
-package com.TimeAttendance.Model;
+package com.TimeAttendance.Models;
 
 import java.util.ArrayList;
 import java.util.List;

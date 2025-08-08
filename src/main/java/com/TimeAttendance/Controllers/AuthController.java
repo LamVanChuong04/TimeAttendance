@@ -1,4 +1,4 @@
-package com.TimeAttendance.Controller;
+package com.TimeAttendance.Controllers;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,16 +22,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.TimeAttendance.Jwt.JwtUtils;
-import com.TimeAttendance.Model.ERole;
-import com.TimeAttendance.Model.Employee;
-import com.TimeAttendance.Model.Role;
+import com.TimeAttendance.Models.ERole;
+import com.TimeAttendance.Models.Employee;
+import com.TimeAttendance.Models.Role;
 import com.TimeAttendance.Payload.DTO.DataMailDto;
 import com.TimeAttendance.Payload.Request.LoginRequest;
 import com.TimeAttendance.Payload.Request.SignupRequest;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Payload.Respone.UserInfoResponse;
-import com.TimeAttendance.Repository.EmployeeRepository;
-import com.TimeAttendance.Repository.RoleRepository;
+import com.TimeAttendance.Repositories.EmployeeRepository;
+import com.TimeAttendance.Repositories.RoleRepository;
 import com.TimeAttendance.Service.MailService;
 import com.TimeAttendance.Service.UserDetailsImpl;
 import com.TimeAttendance.Service.Impl.MailServiceImpl;

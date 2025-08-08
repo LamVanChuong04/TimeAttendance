@@ -1,4 +1,4 @@
-package com.TimeAttendance.Model;
+package com.TimeAttendance.Models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -6,11 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Position {
+public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    public Position(Long id, String name) {
+    public Division(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -27,7 +27,5 @@ public class Position {
         this.name = name;
     }
     private String name;
-    public Position() {
-    }
-    
+    public Division() {}
 }

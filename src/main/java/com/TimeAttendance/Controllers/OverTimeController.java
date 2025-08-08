@@ -1,9 +1,9 @@
-package com.TimeAttendance.Controller;
+package com.TimeAttendance.Controllers;
 
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.TimeAttendance.Model.Overtime;
+import com.TimeAttendance.Models.Overtime;
 import com.TimeAttendance.Payload.Respone.OverTimeResponse;
 import com.TimeAttendance.Service.OvertimeService;
 import com.TimeAttendance.Service.UserDetailsImpl;
