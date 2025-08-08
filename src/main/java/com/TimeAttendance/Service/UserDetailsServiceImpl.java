@@ -19,9 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
     private final EmployeeRepository employeeRepository;
 
-    public UserDetailsServiceImpl( PasswordEncoder passwordEncoder,
-                        EmployeeRepository employeeRepository) {
-
+    public UserDetailsServiceImpl(PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository) {
         this.passwordEncoder = passwordEncoder;
         this.employeeRepository = employeeRepository;
     }

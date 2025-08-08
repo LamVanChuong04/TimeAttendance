@@ -32,7 +32,7 @@ public class OpenApiConfig {
     public GroupedOpenApi groupedOpenApi(){
         return GroupedOpenApi.builder()
                 .group("api-service")
-                .packagesToScan("com.TimeAttendance.Controller")
+                .packagesToScan("com.TimeAttendance.Controllers")
                 .build();
     }
 }
