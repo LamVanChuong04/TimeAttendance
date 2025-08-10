@@ -20,4 +20,8 @@ public class EmployeeServiceImp implements EmployeeService{
     public Optional<Employee> getEmployeeById(Long id){
         return employeeRepository.findById(id);
     }
+    @Override
+    public Boolean checkUsername(String userName){
+        return employeeRepository.existsByUsername(userName);
+    }
 }
