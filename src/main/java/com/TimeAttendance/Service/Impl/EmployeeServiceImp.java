@@ -5,6 +5,8 @@ package com.TimeAttendance.Service.Impl;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.TimeAttendance.Models.Employee;
@@ -24,4 +26,15 @@ public class EmployeeServiceImp implements EmployeeService{
     public Boolean checkUsername(String userName){
         return employeeRepository.existsByUsername(userName);
     }
+
+    @Override
+    public Page<Employee> findByAllEmployee(Pageable pageable) {
+        return employeeRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Employee> findByUserName(String username, Pageable pageable) {
+        return employeeRepository.findByUsername(username, pageable);
+    }
+
 }
