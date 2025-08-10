@@ -19,11 +19,10 @@ public class OverTimeServiceImp implements OvertimeService{
     @Autowired
     private OvertimRepository overtimRepository;
     @Override
-    public List<Overtime> getOvertimeById(Long id){
-        Optional<Employee> emp = employeeRepository.findById(id);
-        if(emp.isEmpty()){
-            throw new RuntimeException("Không tìm thấy nhân viên với id = " + id);
-        }
-        return overtimRepository.findByEmployee(emp.get());
+    public List<Overtime> getOvertimeById(Long id) {
+        Employee emp = employeeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Không tìm thấy nhân viên"));
+        return overtimRepository.findByEmployee(emp);
     }
+
 }

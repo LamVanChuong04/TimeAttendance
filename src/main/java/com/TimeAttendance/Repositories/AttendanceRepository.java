@@ -14,4 +14,6 @@ import com.TimeAttendance.Models.Employee;
 public interface AttendanceRepository  extends JpaRepository<Attendance, Long> {
     Optional<Attendance> findByEmployeeAndCheckDate(Employee employee, LocalDate checkDate);
     List<Attendance> findByEmployee(Employee employee);
+    boolean existsByEmployeeAndCheckDate(Employee employee, LocalDate date);
+    List<Attendance> findByEmployeeId(Long employeeId);
 }
