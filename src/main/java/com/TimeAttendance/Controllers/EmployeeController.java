@@ -14,7 +14,7 @@ import com.TimeAttendance.Repositories.DivisionRepository;
 import com.TimeAttendance.Repositories.EmployeeRepository;
 import com.TimeAttendance.Repositories.JobRepository;
 import com.TimeAttendance.Repositories.PositionRepository;
-import com.TimeAttendance.Service.UserDetailsImpl;
+import com.TimeAttendance.Service.Impl.UserDetailsImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

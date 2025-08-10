@@ -1,7 +1,8 @@
-package com.TimeAttendance.Service;
+package com.TimeAttendance.Service.Impl;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,14 +16,12 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
-    private final PasswordEncoder passwordEncoder;
-    private final EmployeeRepository employeeRepository;
-
-    public UserDetailsServiceImpl(PasswordEncoder passwordEncoder, EmployeeRepository employeeRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.employeeRepository = employeeRepository;
-    }
+    
 
     @Override
     @Transactional

@@ -1,9 +1,8 @@
 package com.TimeAttendance.Config;
 
-import com.TimeAttendance.Service.UserDetailsServiceImpl;
-
 import com.TimeAttendance.Jwt.AuthEntryPointJwt;
 import com.TimeAttendance.Jwt.AuthTokenFilter;
+import com.TimeAttendance.Service.Impl.UserDetailsServiceImpl;
 
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.*;

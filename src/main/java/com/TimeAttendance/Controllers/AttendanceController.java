@@ -20,7 +20,7 @@ import com.TimeAttendance.Payload.Respone.AttendanceResponse;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Repositories.AttendanceRepository;
 import com.TimeAttendance.Repositories.EmployeeRepository;
-import com.TimeAttendance.Service.UserDetailsImpl;
+import com.TimeAttendance.Service.Impl.UserDetailsImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
