@@ -6,10 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +14,15 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.TimeAttendance.Jwt.JwtUtils;
-import com.TimeAttendance.Models.Employee;
+
 import com.TimeAttendance.Payload.Request.LoginRequest;
 import com.TimeAttendance.Payload.Request.SignupRequest;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
@@ -93,32 +90,7 @@ public class AuthController {
       return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
           .body(new MessageResponse("You've been signed out!"));
     }
-    @Operation(summary = "Get All", description = "Đăng nhập tài khoản")
-    @GetMapping("/getAll")
-    public Page<Employee> getAll(
-        @RequestParam int page,
-        @RequestParam int size,
-        @RequestParam(defaultValue = "id") String sort,
-        @RequestParam(defaultValue = "desc") String direction
-    ){
-        Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sortby = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page, size, sortby);
-        return employeeServiceImp.findByAllEmployee(pageable);
-    }
-    @Operation(summary = "Search Page", description = "Đăng nhập tài khoản")
-    @GetMapping("/searchPage")
-    public Page<Employee> getByUsername(@RequestParam String username,
-        @RequestParam int page,
-        @RequestParam int size,
-        @RequestParam(defaultValue = "id") String sort,
-        @RequestParam(defaultValue = "desc") String direction
-    ){
-        Sort.Direction sortDirection = direction.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Sort sortby = Sort.by(sortDirection, sort);
-        Pageable pageable = PageRequest.of(page, size, sortby);
-        return employeeServiceImp.findByUserName(username, pageable);
-    }
+    
 }
   
 

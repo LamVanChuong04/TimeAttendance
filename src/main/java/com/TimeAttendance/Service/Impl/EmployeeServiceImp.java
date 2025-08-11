@@ -2,6 +2,7 @@ package com.TimeAttendance.Service.Impl;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,21 @@ public class EmployeeServiceImp implements EmployeeService{
     public Page<Employee> findByUserName(String username, Pageable pageable) {
         return employeeRepository.findByUsername(username, pageable);
     }
+    @Override
+    public Optional<Employee> getFullName(String name){
+        return employeeRepository.findByFullName(name);
+    }
+    @Override
+    public Employee Save(Employee emp){
+        return employeeRepository.save(emp);
+    }
 
+    @Override
+    public List<Employee> getAllEmployees(){
+        return employeeRepository.findAll();
+    }
+    @Override
+    public void deleteEmployee(Long id){
+        employeeRepository.deleteById(id);
+    }
 }
