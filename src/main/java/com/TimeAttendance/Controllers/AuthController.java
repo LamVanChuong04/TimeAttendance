@@ -29,7 +29,7 @@ import com.TimeAttendance.Payload.Respone.MessageResponse;
 import com.TimeAttendance.Payload.Respone.UserInfoResponse;
 
 import com.TimeAttendance.Service.Impl.AuthServiceImp;
-import com.TimeAttendance.Service.Impl.EmployeeServiceImp;
+
 import com.TimeAttendance.Service.Impl.UserDetailsImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,9 +49,6 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private EmployeeServiceImp  employeeServiceImp;
-    
     @Operation(summary = "Login", description = "Đăng nhập tài khoản")
     @PostMapping("/signin")
     public ResponseEntity<?> signinUser( @RequestBody LoginRequest loginRequest) {

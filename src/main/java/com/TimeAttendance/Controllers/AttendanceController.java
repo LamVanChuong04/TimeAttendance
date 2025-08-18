@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.TimeAttendance.Models.Attendance;
-import com.TimeAttendance.Models.Employee;
+
 import com.TimeAttendance.Payload.Respone.AttendanceResponse;
 import com.TimeAttendance.Payload.Respone.MessageResponse;
 
 import com.TimeAttendance.Service.Impl.AttendanceServiceImp;
-import com.TimeAttendance.Service.Impl.EmployeeServiceImp;
+
 import com.TimeAttendance.Service.Impl.UserDetailsImpl;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,8 +37,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @Tag(name = "Attendance Controller")
 public class AttendanceController {
-    @Autowired
-    private EmployeeServiceImp employeeServiceImp;
     @Autowired
     private AttendanceServiceImp attendanceServiceImp;
     
