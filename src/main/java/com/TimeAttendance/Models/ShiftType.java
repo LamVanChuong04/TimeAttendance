@@ -8,8 +8,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShiftType {
     
     @Id
@@ -17,38 +25,8 @@ public class ShiftType {
     private Long id;
     private String name;
     private double coefficient;
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public double getCoefficient() {
-        return coefficient;
-    }
-    public void setCoefficient(double coefficient) {
-        this.coefficient = coefficient;
-    }
+    
     @OneToMany(mappedBy = "shiftType")
     private List<Overtime> overtimes = new ArrayList<>();
-    public List<Overtime> getOvertimes() {
-        return overtimes;
-    }
-    public void setOvertimes(List<Overtime> overtimes) {
-        this.overtimes = overtimes;
-    }
-    public ShiftType(Long id, String name, double coefficient, List<Overtime> overtimes) {
-        this.id = id;
-        this.name = name;
-        this.coefficient = coefficient;
-        this.overtimes = overtimes;
-    }
-    public ShiftType() {
-    }
+    
 }

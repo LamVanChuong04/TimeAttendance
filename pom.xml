@@ -1,42 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE project [
-        <!ELEMENT project (modelVersion|parent|groupId|artifactId|version|name|description|url|licenses|developers|scm|properties|dependencies|profiles|build)*>
-        <!ATTLIST project
-                xmlns CDATA #REQUIRED
-                xmlns:xsi CDATA #REQUIRED
-                xsi:schemaLocation CDATA #REQUIRED>
-        <!ELEMENT modelVersion (#PCDATA)>
-        <!ELEMENT parent (groupId|artifactId|version|relativePath)*>
-        <!ELEMENT groupId (#PCDATA)>
-        <!ELEMENT artifactId (#PCDATA)>
-        <!ELEMENT version (#PCDATA)>
-        <!ELEMENT relativePath (#PCDATA)>
-        <!ELEMENT name (#PCDATA)>
-        <!ELEMENT description (#PCDATA)>
-        <!ELEMENT url (#PCDATA)>
-        <!ELEMENT licenses (license)*>
-        <!ELEMENT license (#PCDATA)>
-        <!ELEMENT developers (developer)*>
-        <!ELEMENT developer (#PCDATA)>
-        <!ELEMENT scm (connection|developerConnection|tag|url)*>
-        <!ELEMENT connection (#PCDATA)>
-        <!ELEMENT developerConnection (#PCDATA)>
-        <!ELEMENT tag (#PCDATA)>
-        <!ELEMENT properties (java.version|spring.profiles.active)*>
-        <!ELEMENT java.version (#PCDATA)>
-        <!ELEMENT dependencies (dependency)*>
-        <!ELEMENT dependency (groupId|artifactId|scope|version)*>
-        <!ELEMENT scope (#PCDATA)>
-        <!ELEMENT profiles (profile)*>
-        <!ELEMENT profile (id|activation|properties)*>
-        <!ELEMENT id (#PCDATA)>
-        <!ELEMENT activation (activeByDefault)*>
-        <!ELEMENT activeByDefault (#PCDATA)>
-        <!ELEMENT spring.profiles.active (#PCDATA)>
-        <!ELEMENT build (plugins)*>
-        <!ELEMENT plugins (plugin)*>
-        <!ELEMENT plugin (groupId|artifactId)*>
-        ]>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -142,6 +104,11 @@
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
+        </dependency>
+		<dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>annotationProcessor</scope>
         </dependency>
     </dependencies>
 

@@ -1,12 +1,20 @@
 package com.TimeAttendance.Models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@Getter
+@Setter
+
 public class Attendance {
 
     @Id
@@ -31,9 +39,7 @@ public class Attendance {
         this.employee = employee;
     }
 
-    public Long getId() {
-        return id;
-    }
+    
 
     public Attendance(Long id, LocalDate checkDate, LocalTime checkInTime, LocalTime checkOutTime, Employee employee) {
         this.id = id;
@@ -43,41 +49,7 @@ public class Attendance {
         this.employee = employee;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getCheckDate() {
-        return checkDate;
-    }
-
-    public void setCheckDate(LocalDate checkDate) {
-        this.checkDate = checkDate;
-    }
-
-    public LocalTime getCheckInTime() {
-        return checkInTime;
-    }
-
-    public void setCheckInTime(LocalTime checkInTime) {
-        this.checkInTime = checkInTime;
-    }
-
-    public LocalTime getCheckOutTime() {
-        return checkOutTime;
-    }
-
-    public void setCheckOutTime(LocalTime checkOutTime) {
-        this.checkOutTime = checkOutTime;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
+    
     
 
 }
